@@ -1,5 +1,4 @@
 import "./style.scss";
-import { useState } from "react";
 
 const MainSection = ({ setAddCart, Data, setData }) => {
     return (

@@ -10,11 +10,6 @@ function Header() {
     const [addedInCart, setAddCart] = useState(0);
     const [data, setData] = useState(Data);
 
-    // const selectedCartCounter = () => {
-    //     const count = data.reduce((acc, cur) => acc + cur.count, 0);
-    //     setAddCart(count);
-    // };
-
     return (
         <>
             <header>
@@ -46,11 +41,7 @@ function Header() {
                 <Route
                     path="/selectedList"
                     element={
-                        <SelectedProductList
-                            addedInCart={addedInCart}
-                            Data={data}
-                            setData={setData}
-                        />
+                        <SelectedProductList Data={data} setData={setData} />
                     }
                 />
             </Routes>
