@@ -18,8 +18,11 @@ function Header() {
                         <h3>Shop</h3>
                     </div>
                     <div className="iconBox">
-                        <Link to="/SelectedList">
-                            <BiShoppingBag size={40} color="white" />
+                        <Link
+                            to="/SelectedList"
+                            aria-label="go to shopping cart"
+                        >
+                            <BiShoppingBag size={40} color="white" alt="Cart" />
                         </Link>
                         <span style={{ color: "white" }}>
                             {data.reduce((acc, cur) => acc + cur.count, 0)}
