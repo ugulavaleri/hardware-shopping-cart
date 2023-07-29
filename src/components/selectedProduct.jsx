@@ -1,22 +1,25 @@
 import "./style.scss";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, removeFromCart } from "../redux/dataSlicer";
 
-const SelectedProductList = ({ Data, setData }) => {
+const SelectedProductList = () => {
+    const data = useSelector((state) => state.data);
+
     return (
         <>
             <div className="selectedProductsContainer">
                 <h2 className="mainTitle">
-                    {Data.every((e) => e.count === 0)
+                    {data.every((e) => e.count === 0)
                         ? "No selected Items"
                         : "Yout selected items"}
                 </h2>
-                {Data.map(
+                {data.map(
                     (currentProduct) =>
                         currentProduct.count !== 0 && (
                             <Carts
                                 currentProduct={currentProduct}
                                 key={currentProduct.id}
-                                setData={setData}
                             />
                         )
                 )}
@@ -29,32 +32,10 @@ const SelectedProductList = ({ Data, setData }) => {
     );
 };
 
-const Carts = ({ currentProduct, setData }) => {
+const Carts = ({ currentProduct }) => {
     const { image, type, Name, price, count, id } = currentProduct;
+    const dispatch = useDispatch();
 
-    const handleDecrease = (id) => {
-        setData((prev) => {
-            const currentCount = prev.map((item) => {
-                if (item.id === id) {
-                    return { ...item, count: item.count - 1 };
-                }
-                return item;
-            });
-            return currentCount;
-        });
-    };
-
-    const handleIncrease = (id) => {
-        setData((prev) => {
-            const currentCount = prev.map((item) => {
-                if (item.id === id) {
-                    return { ...item, count: item.count + 1 };
-                }
-                return item;
-            });
-            return currentCount;
-        });
-    };
     return (
         <div className="selectedProductsContainer">
             <div className="cart">
@@ -65,9 +46,13 @@ const Carts = ({ currentProduct, setData }) => {
                     <h2>{Name}</h2>
                     <p>price: ${price}</p>
                     <div>
-                        <button onClick={() => handleDecrease(id)}>-</button>
+                        <button onClick={() => dispatch(removeFromCart(id))}>
+                            -
+                        </button>
                         <span>{count}</span>
-                        <button onClick={() => handleIncrease(id)}>+</button>
+                        <button onClick={() => dispatch(addToCart(id))}>
+                            +
+                        </button>
                     </div>
                 </div>
             </div>

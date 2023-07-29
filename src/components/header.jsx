@@ -3,11 +3,10 @@ import { BiShoppingBag } from "react-icons/bi";
 import { Link, Route, Routes } from "react-router-dom";
 import SelectedProductList from "./selectedProduct";
 import ShoppingCartSection from "./shoppingCartSection";
-import { useState } from "react";
-import { Data } from "./data";
+import { useSelector } from "react-redux";
 
 function Header() {
-    const [data, setData] = useState(Data);
+    const data = useSelector((state) => state.data);
 
     return (
         <>
@@ -30,18 +29,8 @@ function Header() {
                 </nav>
             </header>
             <Routes>
-                <Route
-                    path="/"
-                    element={
-                        <ShoppingCartSection Data={data} setData={setData} />
-                    }
-                />
-                <Route
-                    path="/selectedList"
-                    element={
-                        <SelectedProductList Data={data} setData={setData} />
-                    }
-                />
+                <Route path="/" element={<ShoppingCartSection />} />
+                <Route path="/selectedList" element={<SelectedProductList />} />
             </Routes>
         </>
     );

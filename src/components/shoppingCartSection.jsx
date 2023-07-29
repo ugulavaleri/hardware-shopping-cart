@@ -1,18 +1,18 @@
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../redux/dataSlicer";
 import "./style.scss";
 
-const MainSection = ({ Data, setData }) => {
+const MainSection = () => {
+    const data = useSelector((state) => state.data);
+
     return (
         <section>
             <div className="mainContainer">
                 <h1 className="title">Shopping Cart</h1>
                 <div>
                     <div className="display">
-                        {Data.map((item, index) => (
-                            <Cart
-                                currentProd={item}
-                                key={index}
-                                setData={setData}
-                            />
+                        {data.map((item, index) => (
+                            <Cart currentProd={item} key={index} />
                         ))}
                     </div>
                 </div>
@@ -21,27 +21,16 @@ const MainSection = ({ Data, setData }) => {
     );
 };
 
-const Cart = ({ currentProd, setData }) => {
+const Cart = ({ currentProd }) => {
     const { image, type, Name, price, id, count } = currentProd;
-
-    const HandleClick = (id) => {
-        setData((prev) => {
-            const item = prev.map((e) => {
-                if (e.id === id) {
-                    return { ...e, count: e.count + 1 };
-                }
-                return e;
-            });
-            return item;
-        });
-    };
+    const dispatch = useDispatch();
 
     return (
         <div className="Wrapper">
-            <img src={image} alt={type} />
+            <img src={image} alt={type} loading="lazy" />
             <p className="productName">{Name}</p>
             <p className="productPrice">{`$${price}`}</p>
-            <button onClick={() => HandleClick(id)}>
+            <button onClick={() => dispatch(addToCart(id))}>
                 Add to Cart {count !== 0 && `(${count})`}
             </button>
         </div>
