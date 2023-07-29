@@ -1,42 +1,30 @@
 import "./style.scss";
 
-const MainSection = ({ setAddCart, Data, setData }) => {
+const MainSection = ({ Data, setData }) => {
     return (
         <section>
             <div className="mainContainer">
                 <h1 className="title">Shopping Cart</h1>
                 <div>
-                    <CartWrapper
-                        data={Data}
-                        setAddCart={setAddCart}
-                        setData={setData}
-                    />
+                    <div className="display">
+                        {Data.map((item, index) => (
+                            <Cart
+                                currentProd={item}
+                                key={index}
+                                setData={setData}
+                            />
+                        ))}
+                    </div>
                 </div>
             </div>
         </section>
     );
 };
 
-const CartWrapper = ({ data, setAddCart, setData }) => {
-    return (
-        <div className="display">
-            {data.map((item, index) => (
-                <Cart
-                    currentProd={item}
-                    setAddCart={setAddCart}
-                    key={index}
-                    setData={setData}
-                />
-            ))}
-        </div>
-    );
-};
-
-const Cart = ({ currentProd, setAddCart, setData }) => {
+const Cart = ({ currentProd, setData }) => {
     const { image, type, Name, price, id, count } = currentProd;
 
     const HandleClick = (id) => {
-        setAddCart((prev) => prev + 1);
         setData((prev) => {
             const item = prev.map((e) => {
                 if (e.id === id) {

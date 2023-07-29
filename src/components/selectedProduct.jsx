@@ -43,6 +43,7 @@ const Carts = ({ currentProduct, setData }) => {
             return currentCount;
         });
     };
+
     const handleIncrease = (id) => {
         setData((prev) => {
             const currentCount = prev.map((item) => {

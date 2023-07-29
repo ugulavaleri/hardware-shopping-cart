@@ -7,7 +7,6 @@ import { useState } from "react";
 import { Data } from "./data";
 
 function Header() {
-    const [addedInCart, setAddCart] = useState(0);
     const [data, setData] = useState(Data);
 
     return (
@@ -34,11 +33,7 @@ function Header() {
                 <Route
                     path="/"
                     element={
-                        <ShoppingCartSection
-                            setAddCart={setAddCart}
-                            Data={data}
-                            setData={setData}
-                        />
+                        <ShoppingCartSection Data={data} setData={setData} />
                     }
                 />
                 <Route
